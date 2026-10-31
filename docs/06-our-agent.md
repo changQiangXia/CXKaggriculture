@@ -340,10 +340,11 @@ comb2b（终局主提交）
 * 每次只改变一个有明确语义的模块或常量；
 * 用配对 margin 和多池方向一致性决定保留，而不是看单局漂亮数字。
 
-公开 write-up 的总览见 [`public-writeups/README.md`](../public-writeups/README.md)。
-其中第 4 名纯 BC 方案、第 1–3 名 BC+PPO Transformer 方案，说明我们最终
-不是“没有对手”，而是走了一条在有限时间内更容易验证、但产能上限更低的
-局部路线。
+公开 write-up 的索引见 [`public-writeups/README.md`](../public-writeups/README.md)；
+第 1–10 名及低算力金牌方案的横向分析见
+[`07-top-teams.md`](07-top-teams.md)。其中第 4 名纯 BC 方案和单卡
+5090 金牌方案说明：我们最终不是“没有替代路线”，而是把有限时间继续投入到
+固定 tape 的局部优化，没有转向状态到动作的学习闭环。
 
 ### 7.4 四个有代表性的探索切片
 

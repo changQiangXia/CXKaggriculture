@@ -12,10 +12,12 @@
 1. 本页 §3–§7：先掌握终局方案、关键发现和失败边界；
 2. [`docs/06-our-agent.md`](docs/06-our-agent.md)：看 Router、41 条路线和
    约 60 个包装/控制点的代码级结构；
-3. [`docs/01-timeline.md`](docs/01-timeline.md)：按日期看判断如何变化；
-4. [`docs/02-experiments.md`](docs/02-experiments.md)：查各组实验的规模、
+3. [`docs/07-top-teams.md`](docs/07-top-teams.md)：深读前 10 名及单卡金牌
+   方案，理解高手为何选择 BC、PPO、联赛或规划器；
+4. [`docs/01-timeline.md`](docs/01-timeline.md)：按日期看判断如何变化；
+5. [`docs/02-experiments.md`](docs/02-experiments.md)：查各组实验的规模、
    结果和证据强度；
-5. [`docs/history/CHRONOLOGY.md`](docs/history/CHRONOLOGY.md)：需要原始细节时，
+6. [`docs/history/CHRONOLOGY.md`](docs/history/CHRONOLOGY.md)：需要原始细节时，
    从 521 份逐日笔记继续追溯。
 
 ---
@@ -26,8 +28,9 @@
 约 60 个常量里找到唯一一个真正卡在错误一侧的开关
 （`V9_FERT_FIRST_DAY 14 → 12`，+84 分/局），把它推到了**前 5.02%**；
 但同类路线（553 名的队伍）和我们自己都撞上了同一面墙：
-**市场层有天花板，剩下的差距在产能。** 而真正的头部选手，用的是
-**行为克隆 + 自博弈 PPO 训练出来的 Transformer 策略**，与我们是两个物种。
+**市场层有天花板，剩下的差距在产能。** 头部选手则把强 replay 学成
+条件策略：前 3 名用不同强度的自博弈 PPO，第 4、7、17、19、27 名等用纯 BC
+拿到前四或金牌。BC 是共同地基，PPO 只是有条件时使用的第二轮放大器。
 
 ---
 
@@ -215,17 +218,28 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 我们把**33 篇公开 write-up** 全部抓取归档（`public-writeups/`），并把前几名的
 方法摘录在 [`public-writeups/README.md`](public-writeups/README.md)。
 
-**一句话概括头部：全是「行为克隆 + 自博弈 PPO」的 Transformer。**
+**更准确的概括：头部都以强 replay/行为克隆为地基，但终局路线分成
+BC→自博弈 PPO、纯 BC/SFT、以及 BC+显式规划器三类。**
+
+| 路线 | 代表名次 | 关键条件 |
+|---|---|---|
+| BC → 自博弈/联赛 PPO | 1、2、3、6、10、12、13、22 | 强 critic、反应式联赛、足够新的 replay；规模化收益大 |
+| 最终纯 BC/SFT | 4、5、7、9、17、19、24、27 | 执行后标签、教师版本一致、按整局选 checkpoint |
+| BC/RL + 显式规划器 | 26、28 | 用规划处理生产、劳动、路线、市场和终局约束 |
 
 | 名次 | 方法 | 训练规模 |
 |---|---|---|
 | 1 | Transformer 10.2M + BC/PPO 交替（BC 引入新策略） | ~8.3M–9.0M 自博弈局 |
 | 2 | 37M encoder-decoder，纯 BC + 短 PPO | **30 GPU·小时**（RTX 5090） |
-| 3 | Transformer 10.4M + 重 PPO | 360M 步 / 20.1B 位置 / 21M 局 |
+| 3 | Transformer 10.4M + 重 PPO | 最终 run 360M 步；总 campaign 约 21M 局 |
 | **4** | **纯 BC，无自博弈** | **~5.5 A100·小时** |
+| 7 | 8.2M BC + 两条保护规则，NumPy 推理 | 单张 RTX 5090 |
+| 17 | 4M/7M 纯 BC + 薄规则层 | 总成本 <\$60 |
 
 第 4 名的结论对我们最有参考价值：**数据与标签选择比模型规模值钱十倍**。
 他们把「模仿玩家下的单」换成「模仿引擎实际执行的单」，同一个网络从 3/24 提到 12/24。
+完整逐队比较、PPO 失败条件和低算力复现路线见
+[`docs/07-top-teams.md`](docs/07-top-teams.md)。
 
 ---
 
@@ -233,10 +247,11 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 完整推演见 [`docs/05-next-time.md`](docs/05-next-time.md)。三条最硬的：
 
-**① 造磁带是死路，第一天就该做 BC。**
+**① 把 BC 作为主线，越早越好。**
 第 4 名用 5.5 A100·小时、纯 BC 拿到第 4。我们的路线在 509 名撞上天花板，
 而同类路线（553 名）的 write-up 结论与我们完全一致：**「市场层有天花板，
-剩下的差距在产能」**。
+剩下的差距在产能」。第 17 名不到 60 美元的纯 BC 金牌进一步说明，门槛不在
+“必须有 GPU 集群”，而在数据、动作接口与完整局评测。
 
 **② 评估器要先于模型建立，且必须配对。**
 这是唯一一件我们从第一天就做对的事，也是唯一有效的发现没有变成噪声的原因。
@@ -260,6 +275,7 @@ CXKaggriculture/
 │   ├── 04-lessons.md              教训：哪里判断错了、怎么发现的
 │   ├── 05-next-time.md            下次如何做得更好
 │   ├── 06-our-agent.md            ★ 我们的方案：路由、层栈与证据
+│   ├── 07-top-teams.md            ★ 顶级高手方案横向深读
 │   ├── COMPLETE-STORY.md          长篇叙事（一份文档讲完整场比赛）
 │   ├── experiment-log.md          最后 38 小时的逐小时日志
 │   ├── retrospective.md           复盘原文（含被推翻的结论）
@@ -313,4 +329,6 @@ hand-building tapes — the 4th-place team reached 4th with pure BC and ~5.5
 A100-hours, and the closest peer to our approach (553rd) reported the same
 ceiling we hit: market layers run out; production is what remains. A detailed
 technical walkthrough of the route router, layer stack, and lineage is in
-`docs/06-our-agent.md`.
+`docs/06-our-agent.md`; `docs/07-top-teams.md` compares the top public teams,
+separates BC/SFT-only from BC+PPO and hybrid-planner approaches, and explains
+which practices transferred to a low-compute rerun.
