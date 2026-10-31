@@ -14,7 +14,7 @@
 
 **推荐阅读顺序：**
 
-1. 本页 §3–§7：先掌握终局方案、关键发现和失败边界；
+1. 本页 §3–§8：先掌握终局方案、关键发现、优势、不足和失败边界；
 2. [`docs/06-our-agent.md`](docs/06-our-agent.md)：看 Router、41 条路线和
    约 60 个包装/控制点的代码级结构；
 3. [`docs/07-top-teams.md`](docs/07-top-teams.md)：深读前 10 名及单卡金牌
@@ -206,7 +206,62 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 ---
 
-## 5. 一个没有解决的矛盾
+## 5. 优势与不足
+
+这一节同时评价**策略本身**和**仓库证据质量**。优势是“在已测范围内观察到
+有效”，不是对所有类似比赛的保证；不足也不否定 509/10,148 的结果。
+
+### 5.1 方案优势
+
+| 优势 | 具体表现 | 证据边界 |
+|---|---|---|
+| **完整、自包含、确定性强** | 终局包只有一个 `main.py`，内含 41 条路线、Router 和包装层，无外部模型或网络依赖 | 源码与哈希可核验；不代表计算最优 |
+| **保留了完整生产链** | 每条路线覆盖 719 个可执行 step，生产、劳动、搬运和卖单相位已经协调 | 多个包装点会影响执行；静态存在不等于每局触发 |
+| **利用公开世界状态做路由** | day 6 用 64 行商店表选路线，并另有 V92/V93 覆盖；day 12/20/27 固定切换 | 路由来自历史世界分布；未必覆盖未来 meta |
+| **工程性防守较多** | 杂草修复、工人对齐、提前卖、棚屋保护、终局清货和异常回退 | 部分包装点在面板上惰性；实际价值依赖世界分布 |
+| **评估纪律较强** | 同对手/同世界/同 seed 配对、fidelity 过滤、多池复核、直接对打与线上并列报告 | 冻结回放不能模拟反应；尚无一个本地指标完全复现最终 BT |
+| **最终改动很小** | `comb2b` 相对 `comb` 只改 3 个常量（6 行 diff），三池均值为 +108～+113/局 | 这是当前三池的配对结果，不是对所有对手的无条件增益 |
+| **负结果记录充分** | 60/60 包装点、27 组拼接、约 350 个市场变体以及补喂/RL/算子实验都有结论 | “全部失败”只在各自列出的实验范围内成立 |
+
+### 5.2 方案不足
+
+| 不足 | 具体影响 | 当前判断 |
+|---|---|---|
+| **固定路线限制长期重规划** | day 12 后主要沿用既定路线；对手大幅改变产能或市场策略时，缺少从当前状态重排整局计划的能力 | 这是当前证据支持的主要结构性瓶颈 |
+| **“磁带 + 多包装层”耦合复杂** | 终局源码约 8,444 行、1.06 MB；约 60 个可消融包装点共享同一动作轨迹，局部改动容易改变后续相位 | 可维护性和因果归因明显弱于单策略网络或显式规划器 |
+| **对市场 meta 的适应性有限** | 卖单预测和抢卖层被组合、关闭或局部保留；冻结面板无法完整评价会反应的对手 | 冻结回放与直接对打排序相反，尚未解决 |
+| **阈值和规则有过拟合风险** | 大量常量只在特定 108 局面板或对手池上测试；少量规则在不同面板上可能由正转负 | 因此只保留跨池一致和确定性的硬边界 |
+| **学习型对手建模不足** | 没有训练状态到动作的完整策略；对手隐藏库存、未来销售和生产切换主要靠规则或离线分析 | 与头部 BC/PPO/规划器方案存在能力代差 |
+| **最终名次非常贴面** | 509 名与第 510 名同为 4513.5；距第 507 名只差 1.0 分 | 小幅评分或匹配变化即可改变名次，不能把边界结果解释成稳定优势 |
+| **性能上限受时间分配影响** | 大部分时间用于优化手写 tape，学习型方案开始较晚 | 这是过程复盘；无法单凭结果量化“如果更早转向一定能到多少名” |
+
+### 5.3 仓库与证据优势
+
+- **终局可执行物完整**：5 个候选包均有校验和；两份终局提交和两份被顶出、
+  两份未提交对照均有出处。
+- **实验链条可追踪**：从 521 份原始笔记到逐日索引、实验总账、时间线和
+  长文复盘，能追踪“观察到什么、试了什么、怎样推翻”。
+- **评估工具与负结果都保留**：不只保存最终赢家，也保留冻结回放、直接对打、
+  BT、逃逸、棚屋和 RL 失败实验。
+- **公开方案可追溯**：33 篇 write-up 保留原链接、作者或队名及版权说明；
+  顶级方案深读区分了作者自报、工程结论和我们的推断。
+
+### 5.4 仓库与证据不足
+
+- **不是完整复现包**：不包含官方 engine、完整 replay 语料或模型权重；
+  `tools/` 中的历史脚本可能仍需修改路径和依赖。
+- **不能独立复现第三方结果**：33 篇 write-up 没有重训；对头部方案的结论
+  来自原文核对和交叉比较，不是独立 benchmark。
+- **最终 leaderboard 的完整导出未归档**：仓库只有比赛中途快照；最终
+  509 / 10,148、4513.5 来自比赛结束后的最终页面记录。
+- **历史材料并非统一口径**：工作日志里有被推翻的数字和绝对化措辞，已加
+  时间/证据边界，但原话没有改写成事后正确答案。
+- **引擎规则页不是权威全集**：`reference/engine-rules.md` 只是便利摘录；
+  关键执行语义应以对应官方 engine 源码和 replay 对账为准。
+
+---
+
+## 6. 一个没有解决的矛盾
 
 比赛最后一天，我们跑了**直接对打**（两个 agent 同世界、双向座位、128 个世界）：
 
@@ -224,7 +279,7 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 ---
 
-## 6. 公开区顶级选手做了什么
+## 7. 公开区顶级选手做了什么
 
 我们把归档时能定位到的 **33 篇公开 write-up** 保存下来
 （`public-writeups/`），并把前几名的
@@ -255,7 +310,7 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 ---
 
-## 7. 如果重来一次
+## 8. 如果重来一次
 
 完整推演见 [`docs/05-next-time.md`](docs/05-next-time.md)。三条最硬的：
 
@@ -276,7 +331,7 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 ---
 
-## 8. 仓库结构
+## 9. 仓库结构
 
 ```
 CXKaggriculture/
@@ -307,7 +362,7 @@ CXKaggriculture/
 
 ---
 
-## 9. 数据与规则合规
+## 10. 数据与规则合规
 
 本仓库**不包含**原始比赛数据、私有数据、模型权重或未公开的他人提交物。
 `evidence/` 保留 4 局自采对局样本；`public-writeups/` 和 `candidates/`
@@ -345,8 +400,8 @@ public solution write-ups from the competition are under `public-writeups/`,
 indexed and summarised. `docs/05-next-time.md` lays out what we would do
 differently: build the paired evaluator first (we did, and it is why the one
 real finding survived), then train a behavioural-cloning policy instead of
-hand-building tapes — the 4th-place team reached 4th with pure BC and ~5.5
-A100-hours, and the closest peer to our approach (553rd) reported a similar
+hand-building tapes — the 4th-place team reached 4th with BC plus one feeding
+rule in ~5.5 A100-hours, and the closest peer to our approach (553rd) reported a similar
 bottleneck in its tested route: market-layer gains became small while production
 and execution remained. A detailed
 technical walkthrough of the route router, layer stack, and lineage is in
@@ -354,3 +409,11 @@ technical walkthrough of the route router, layer stack, and lineage is in
 separates BC/SFT-only from BC+PPO and hybrid-planner approaches, and explains
 which practices transferred to a low-compute rerun. `docs/08-evidence-and-scope.md`
 defines the evidence levels and measurement conventions used across the archive.
+
+The system's main strengths are a complete deterministic artifact, coordinated
+719-step economic traces, extensive defensive overlays, and unusually careful
+paired evaluation and failure documentation. Its main weaknesses are the lack of
+long-horizon replanning, the coupling and maintenance cost of a tape plus many
+wrappers, limited adaptation to reactive market opponents, and evaluation
+evidence that is still inconsistent across frozen replay, direct duels, and the
+live ladder.
