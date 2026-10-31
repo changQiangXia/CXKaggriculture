@@ -1,6 +1,7 @@
 # 01 · 探索历程（三阶段）
 
-完整原始笔记见 [`history/`](history/)，按日期分三个阶段，共 522 份。
+完整原始笔记见 [`history/`](history/)，按日期分三个阶段。
+**逐日索引**：[`history/CHRONOLOGY.md`](history/CHRONOLOGY.md) —— 全部 521 份笔记按时间排列。
 每个实验的结论见 [`02-experiments.md`](02-experiments.md)。
 
 ---

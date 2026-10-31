@@ -1,5 +1,8 @@
 # Working notes, in chronological order
 
+**→ [`CHRONOLOGY.md`](CHRONOLOGY.md)** 把全部 521 份笔记按日期排成一条时间线，
+想顺着时间追踪某个结论的来源时，从那里开始。
+
 These are the raw working notes kept while the competition ran.  They are
 reproduced verbatim, in three phases, because the value of an archive like
 this is being able to follow how the conclusions were reached — including the

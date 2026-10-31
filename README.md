@@ -220,7 +220,9 @@ CXKaggriculture/
 │   ├── experiment-log.md          最后 38 小时的逐小时日志
 │   ├── retrospective.md           复盘原文（含被推翻的结论）
 │   ├── reproducing.md             复现指南 + 已知陷阱
-│   └── history/                   522 份原始工作笔记（按日期分三阶段）
+│   └── history/                   521 份原始工作笔记（按日期分三阶段）
+│       ├── README.md              阶段说明
+│       └── CHRONOLOGY.md          ★ 逐日实验账本（521 份全索引）
 ├── public-writeups/               33 篇公开 write-up + 索引摘要
 ├── candidates/                    5 个候选包 + SHA256SUMS
 ├── tools/                         14 个评估与诊断脚本
