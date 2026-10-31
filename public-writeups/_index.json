@@ -1,0 +1,167 @@
+[
+  {
+    "rank": "1",
+    "team": "M & M & P & Q",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/1st-place-solution-our-journey-to-becoming-profe"
+  },
+  {
+    "rank": "2",
+    "team": "Victor @ Tufa Labs",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/trading-clutch-no-b200"
+  },
+  {
+    "rank": "3",
+    "team": "DSM",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/kaggriculture-3rd-place-dsm-solution"
+  },
+  {
+    "rank": "4",
+    "team": "Farmcore",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/farmcore-a-one-pass-transformer-trained-on-what-t"
+  },
+  {
+    "rank": "5",
+    "team": "\u6709\u8fa3\u6761\u6709\u6743",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/its-sft-all-the-way-down"
+  },
+  {
+    "rank": "6",
+    "team": "CDE",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/6th-place-write-up"
+  },
+  {
+    "rank": "7",
+    "team": "DECEM",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/7th-place-my-solution-only-behavior-cloning-t"
+  },
+  {
+    "rank": "9",
+    "team": "tetsuya & yuanzhe & guoqin",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/from-reinforcement-learning-to-a-final-bc-agent"
+  },
+  {
+    "rank": "10",
+    "team": "KawattaTaido",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/10th-place-bc-ppo-on-a-single-rtx-5090"
+  },
+  {
+    "rank": "12",
+    "team": "Unknown Mother-Goose",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/12th-place-bc-with-ppo"
+  },
+  {
+    "rank": "13",
+    "team": "MarvinTMB",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/a-good-league-is-all-you-need"
+  },
+  {
+    "rank": "17",
+    "team": "Gemini IS ALL YOU NEED",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/gold-medalist-with-70-of-compute"
+  },
+  {
+    "rank": "19",
+    "team": "Christoffer Thimsen",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/19th-place-solo-gold-a-behaviour-clone"
+  },
+  {
+    "rank": "22",
+    "team": "atsushi11o7",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/22nd-place-behavior-cloning-and-ppo-with-diverse"
+  },
+  {
+    "rank": "24",
+    "team": "abozten",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/cloning-the-best-farmer-on-one-rtx-5070"
+  },
+  {
+    "rank": "26",
+    "team": "My second life",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/31th-place-currently-our-writeup-macro-bc-d"
+  },
+  {
+    "rank": "27",
+    "team": "monsaraida",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/monsaraida-27th-place-solution"
+  },
+  {
+    "rank": "28",
+    "team": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/28th-place-gold-solution-how-we-taught-a-farm-to"
+  },
+  {
+    "rank": "32",
+    "team": "mtmr_s1",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/32nd-place-solution-opening-book-and-heuristics"
+  },
+  {
+    "rank": "47",
+    "team": "D Chakraborty",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/47th-place-teaching-a-farming-agent-from-replays"
+  },
+  {
+    "rank": "48",
+    "team": "JB Bryant",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/48th-place-solution-policy-basin-hopping-with-ex"
+  },
+  {
+    "rank": "51",
+    "team": "Driz Lo",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/51st-place-solution-replay-bc"
+  },
+  {
+    "rank": "70",
+    "team": "NSK_54",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/70th-place-solution-replay-bc-and-teacher-select"
+  },
+  {
+    "rank": "116",
+    "team": "Auto Fermers",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/116th-six-weeks-of-llm-coding-agents"
+  },
+  {
+    "rank": "275",
+    "team": "yash bhaskar",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/275th-place-solution-shop-based-farming-heuristics"
+  },
+  {
+    "rank": "349",
+    "team": "shawnYiB",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/kaggriculture-shawny1b"
+  },
+  {
+    "rank": "553",
+    "team": "42",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/market-layers-on-a-public-agent"
+  },
+  {
+    "rank": "573",
+    "team": "Tim McGarvey",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/top-6-in-my-first-kaggle-competition-a-hand-writ"
+  },
+  {
+    "rank": "645",
+    "team": "Hak",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/bronze-from-muzero-to-a-measured-hybrid-agent"
+  },
+  {
+    "rank": "692",
+    "team": "Sarthak Sharma ",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/kaggriculture-rank-512-bronze-how-my-agent-worke"
+  },
+  {
+    "rank": "755",
+    "team": "Rospel",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/humble-solution"
+  },
+  {
+    "rank": "1231",
+    "team": "KevlarZanderChi",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/rl-ppo-light-layer-on-base-layer-elo-ranke-11401"
+  },
+  {
+    "rank": "3726",
+    "team": "WOOSUNG YOON",
+    "writeup_url": "https://www.kaggle.com/competitions/kaggriculture/writeups/gigpo-kaggriculture"
+  }
+]

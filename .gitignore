@@ -1,0 +1,16 @@
+# Local secrets
+.env
+.kaggle/
+**/*credential*
+**/*token*
+**/*.pem
+
+# Large artifacts / scratch
+*.parquet
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Keep the archived submission packages and sample replays
+!candidates/*.tar.gz
+!evidence/replays/*.json.gz
