@@ -7,13 +7,25 @@
 止步于此，以及如果重来一次会怎么做。所有原始笔记、33 篇顶级公开 write-up、
 两份终局提交的可执行文件都在这个仓库里。
 
+**推荐阅读顺序：**
+
+1. 本页 §3–§7：先掌握终局方案、关键发现和失败边界；
+2. [`docs/06-our-agent.md`](docs/06-our-agent.md)：看 Router、41 条路线和
+   约 60 个包装/控制点的代码级结构；
+3. [`docs/01-timeline.md`](docs/01-timeline.md)：按日期看判断如何变化；
+4. [`docs/02-experiments.md`](docs/02-experiments.md)：查各组实验的规模、
+   结果和证据强度；
+5. [`docs/history/CHRONOLOGY.md`](docs/history/CHRONOLOGY.md)：需要原始细节时，
+   从 521 份逐日笔记继续追溯。
+
 ---
 
 ## 0. 一句话总结
 
-我们用一个**公开动作磁带 + 约 60 层手写策略层**的架构，在 60 个常量里找到
-唯一一个真正卡在错误一侧的开关（`V9_FERT_FIRST_DAY 14 → 12`，+84 分/局），
-把它推到了**前 5.02%**；但同类路线（553 名的队伍）和我们自己都撞上了同一面墙：
+我们用一个**41 条路线组成的动作磁带库 + 约 60 个包装/控制点**的架构，在
+约 60 个常量里找到唯一一个真正卡在错误一侧的开关
+（`V9_FERT_FIRST_DAY 14 → 12`，+84 分/局），把它推到了**前 5.02%**；
+但同类路线（553 名的队伍）和我们自己都撞上了同一面墙：
 **市场层有天花板，剩下的差距在产能。** 而真正的头部选手，用的是
 **行为克隆 + 自博弈 PPO 训练出来的 Transformer 策略**，与我们是两个物种。
 
@@ -68,9 +80,22 @@
 
 ### 3.1 架构：磁带 + 策略层
 
-最终 agent 是一个**冻结的动作磁带**：720 个录好的回合逐字重放，外面套约 60 层
-手写策略层，在特定条件下拦截并改写具体决策——市场订单、路线、劳动力分配、
-牲畜选择。
+最终 agent 是一个**路线条件化的冻结动作回放器**。包内有 41 条完整路线，
+每条包含 719 个可执行 step（0–718，覆盖 720 步 episode）。第 6 天读取前两个
+解锁商店，从 64 行映射表中选择世界专属路线；第 12、20、27 天再切到固定的
+中后段和末期路线：
+
+| step 范围 | day | 路线行为 |
+|---|---:|---|
+| 0–143 | 0–5 | 统一开局路线 |
+| 144–287 | 6–11 | 按前两个解锁商店选择路线 |
+| 288–479 | 12–19 | 固定路线 104 |
+| 480–647 | 20–26 | 固定路线 120 |
+| 648–718 | 27–29 | 固定路线 2 |
+
+路线外再串联约 60 个包装/控制点，在特定条件下改写具体决策——市场订单、
+劳动力分配、牲畜选择、种子浮动和终局清货。这里的“60”是源码中的可消融
+包装标记数，不是 60 个独立模型；部分层是安全保护，部分层只在特定世界触发。
 
 这个架构的性质决定了后面的一切：
 
@@ -78,7 +103,25 @@
 * 能动的只有**参数与开关**（时机、阈值）；
 * 每层要么自己付账，要么是税——唯一判据是配对测试。
 
-### 3.2 唯一真正有效的改动
+完整拆解——包括 Router 伪代码、每类策略层、三层候选血统和源码审计方法——
+见 [`docs/06-our-agent.md`](docs/06-our-agent.md)。
+
+### 3.2 路由为什么这样选
+
+路线选择只依赖公开状态：
+
+1. step 2 记录对手开局资金与小麦库存；
+2. step 144 读取前两个解锁商店；
+3. 无羊毛店时使用 EXP240 的 64 行新商店表，有羊毛店时使用 V39 的
+   64 行旧商店表；
+4. 15 组含羊毛店的组合再被 V92 表覆盖，另有一个开局特征例外；
+5. 最后按 day 12/day 20/day 27 三个边界切到 104/120/2。
+
+`w2_120` 的名字来自“第二个中后段窗口使用路线 120”。我们没有继续叠一个
+学习分类器，因为 day-6 表留一法重拟合、27 组合路线边界扫描和固定开局替换
+都没有稳定超过这个确定性路由。
+
+### 3.3 唯一真正有效的改动
 
 我们扫了约 60 个常量与阈值家族。绝大多数是**死代码**（改动后产生逐字节相同的
 对局）或**已经站在悬崖正确一侧**。只有一个是真正卡在错误一侧的：
@@ -97,7 +140,7 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 线上验证：开分 **2109.3**，比它的父本高 165 分。
 
-### 3.3 我们做对了什么（方法论）
+### 3.4 我们做对了什么（方法论）
 
 这一节比上面的结果更重要，因为**唯一有效的发现差点被扔掉**。
 
@@ -216,6 +259,7 @@ CXKaggriculture/
 │   ├── 03-final-submissions.md    两份终局提交的完整档案
 │   ├── 04-lessons.md              教训：哪里判断错了、怎么发现的
 │   ├── 05-next-time.md            下次如何做得更好
+│   ├── 06-our-agent.md            ★ 我们的方案：路由、层栈与证据
 │   ├── COMPLETE-STORY.md          长篇叙事（一份文档讲完整场比赛）
 │   ├── experiment-log.md          最后 38 小时的逐小时日志
 │   ├── retrospective.md           复盘原文（含被推翻的结论）
@@ -225,7 +269,7 @@ CXKaggriculture/
 │       └── CHRONOLOGY.md          ★ 逐日实验账本（521 份全索引）
 ├── public-writeups/               33 篇公开 write-up + 索引摘要
 ├── candidates/                    5 个候选包 + SHA256SUMS
-├── tools/                         14 个评估与诊断脚本
+├── tools/                         15 个评估与诊断脚本
 ├── evidence/                      榜单快照与样本对局
 └── reference/                     引擎规则常量
 ```
@@ -250,8 +294,11 @@ top episode 与公开 discussion），仅作技术归档与研究参考；每篇
 **Result: 509th of 10,148 teams (top 5.02%), private score 4513.5 — one point
 and two places short of the silver threshold (507th, 4514.5).**
 
-Our agent was a frozen 720-turn action tape wrapped in ~60 hand-written policy
-layers. Sweeping ~60 constants found exactly one genuine untaken switch
+Our agent was a deterministic route-replay policy with 41 complete 719-step
+action tapes and roughly 60 wrapper/control points. It selected a route from
+the first two unlocked shops on day 6 and switched to routes 104/120/2 in the
+day-12–19, day-20–26, and day-27–29 windows. Sweeping ~60 constants found
+exactly one genuine untaken switch
 (`V9_FERT_FIRST_DAY 14→12`, +84 margin per game, t = 5.10 across three
 independent opponent pools); it had been discarded earlier because the first
 sweep used win/loss counts instead of paired margins. The final variant
@@ -264,4 +311,6 @@ differently: build the paired evaluator first (we did, and it is why the one
 real finding survived), then train a behavioural-cloning policy instead of
 hand-building tapes — the 4th-place team reached 4th with pure BC and ~5.5
 A100-hours, and the closest peer to our approach (553rd) reported the same
-ceiling we hit: market layers run out; production is what remains.
+ceiling we hit: market layers run out; production is what remains. A detailed
+technical walkthrough of the route router, layer stack, and lineage is in
+`docs/06-our-agent.md`.

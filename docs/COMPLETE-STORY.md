@@ -3,6 +3,13 @@
 One document covering the whole competition: what we set out to do, everything
 we tried, what worked, what did not, and what we still do not know.
 
+> **Historical snapshot:** this narrative was written on 2026-10-02, when
+> `comb2b` showed 2098.7 on the still-moving public ladder. The final
+> post-deadline Bradley–Terry result was **4513.5, 509th of 10,148 teams**,
+> one point short of silver. See [`03-final-submissions.md`](03-final-submissions.md)
+> for the final accounting and [`06-our-agent.md`](06-our-agent.md) for the
+> code-level walkthrough.
+
 Scope: **2026-07-30** (competition opened) through **2026-10-02** (this
 writing, two days after submissions closed).  Work in earnest began
 **09-12**.  Raw notes for every day are in `history/`.
@@ -53,10 +60,12 @@ candidates, most of which died under fidelity-filtered paired testing.  In the
 final 38 hours we swept sixty constants and found exactly **one** genuine
 untaken switch, worth +84 margin per game, which had previously been discarded
 because the first sweep had used win/loss counts.  The submission built on it
-scored **2098.7 — top 4.6% of 10,246 teams, silver-medal band, but short of the
-top-200 goal.**  A direct self-play duel then contradicted the replay harness
-about which of our own candidates was better, and the ladder sided with the
-duel.  That contradiction is the archive's outstanding open question.
+was on **2098.7 — top 4.6% of 10,246 teams — when this snapshot was written**;
+the final post-deadline rerank placed it at **4513.5, 509th of 10,148**, one
+point short of silver and well short of the top-200 goal.  A direct self-play
+duel then contradicted the replay harness about which of our own candidates was
+better, and the live ladder sided with the direct-duel ordering.  That
+contradiction is the archive's outstanding open question.
 
 ---
 

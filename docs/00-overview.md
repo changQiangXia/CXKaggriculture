@@ -42,6 +42,7 @@
 | 2 | `56716540` | `cand_w2_120.tar.gz` | 4510.7 |
 
 详见 [`03-final-submissions.md`](03-final-submissions.md)。
+终局代码的 Router、路线库与层栈见 [`06-our-agent.md`](06-our-agent.md)。
 
 ## 注意 public 与 private 是两套尺度
 
