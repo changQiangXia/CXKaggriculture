@@ -1,6 +1,18 @@
-# Kaggriculture engine reference (kaggle-environments 1.32.7)
+# Kaggriculture engine reference (partial; kaggle-environments 1.32.7)
 
-Extracted from the pinned official engine so the archive is self-contained.
+Convenience excerpts from the engine version used during the competition.
+
+> **Verification status:** these excerpts are not a replacement for the
+> official engine source. The post-competition documentation audit could not
+> independently retrieve public package version `1.32.7`, so the constants and
+> docstrings below were not re-verified end-to-end. In particular, the
+> `_daily_refresh_animals` docstring appears duplicated from the shed-drop
+> helper and should be treated as an extraction artifact, not as an
+> authoritative rule description. For execution-sensitive work, compare
+> against the exact pinned engine source and replay traces.
+
+Canonical evidence conventions are in
+[`../docs/08-evidence-and-scope.md`](../docs/08-evidence-and-scope.md).
 
 
 ## FARMER_MOVES

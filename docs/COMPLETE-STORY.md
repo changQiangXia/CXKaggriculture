@@ -9,6 +9,11 @@ we tried, what worked, what did not, and what we still do not know.
 > one point short of silver. See [`03-final-submissions.md`](03-final-submissions.md)
 > for the final accounting and [`06-our-agent.md`](06-our-agent.md) for the
 > code-level walkthrough.
+>
+> The narrative also preserves the provisional generalisations used while the
+> competition was running. Treat “never”, “only”, and “all” below as scoped to
+> the experiments described in that section. Current evidence conventions are
+> in [`08-evidence-and-scope.md`](08-evidence-and-scope.md).
 
 Scope: **2026-07-30** (competition opened) through **2026-10-02** (this
 writing, two days after submissions closed).  Work in earnest began
@@ -64,8 +69,9 @@ was on **2098.7 — top 4.6% of 10,246 teams — when this snapshot was written*
 the final post-deadline rerank placed it at **4513.5, 509th of 10,148**, one
 point short of silver and well short of the top-200 goal.  A direct self-play
 duel then contradicted the replay harness about which of our own candidates was
-better, and the live ladder sided with the direct-duel ordering.  That
-contradiction is the archive's outstanding open question.
+better; the available live readings put `comb2b` above `w2_120`, matching the
+frozen-replay ordering and contradicting the direct duel. That contradiction is
+the archive's outstanding open question.
 
 ---
 
@@ -155,22 +161,24 @@ panels overstate).  Every later result is downstream of these.
 
 ### 4.1 The architecture settles: tape + layers
 
-The agent that carried us to the end is a **frozen action tape**: 720 recorded
-turns replayed verbatim, wrapped in roughly sixty hand-written **policy
-layers** that intercept and override specific decisions — market orders,
-which route to follow, how to allocate hired hands, which animal to buy, when
-to sell what.
+The agent that carried us to the end was a **route-replay system**: 41 complete
+routes, each covering 719 executable steps (0–718), with roughly sixty
+wrapper/control points around them. The wrappers intercepted specific
+decisions — market orders, route choice, labour allocation and animal choices.
 
-Why a tape rather than a learned policy?  Because a learned policy was tried
-and failed (see 4.4).  The tape encodes three weeks of someone else's
-well-tuned micro-decisions; the layers let us change *specific* judgements
-without disturbing the rest.  This is a very odd architecture, and its
-properties drove everything that followed:
+Why this route rather than a learned policy? Our small learned-policy sandboxes
+did not produce a competitive full-game agent inside the time/budget we spent.
+This does not show that learned policies were infeasible: the public top teams
+demonstrated the opposite. The tape encoded another team's well-tuned
+micro-decisions; our wrappers changed selected judgements without reconstructing
+the whole schedule.
 
-* you can only change **parameters and switches**, not add behaviours, because
-  the tape's schedule is saturated;
-* a layer either pays for itself or is a tax, and the only way to know is
-  paired testing.
+Within this architecture, the practical search space was narrower:
+
+* many changes added work without removing a competing action, so opportunity
+  cost erased their benefit;
+* a layer either pays for itself or is a tax; the decision rule combined paired
+  evaluation with win/loss and live evidence.
 
 ### 4.2 Mapping the field
 
@@ -237,21 +245,26 @@ Full detail in `experiment-log.md`; the shape of it:
 
 Layers, constants, splices, market-flow synthesis, animal substitutions,
 labour retiming, RL sandboxes, operator ports — sixty-ish distinct families,
-almost all negative.  Two structural findings came out of it:
+almost all negative within that tested set. Two structural observations came
+out of it:
 
-* the tape runs at **~95% labour utilisation**, and every animal costs about
-  **2.2 actions/day** in upkeep.  So the agent's habit of *letting some
-  animals escape* is not a bug — under a fixed labour budget it is an optimal
-  cull.  We rescued 154 sheep and lost money doing it (−35k labour value
-  against +77k capital).
-* **adding behaviours never pays; only changing parameters does.**  Every
-  operator we wrote was eaten by the opportunity cost it created.
+* archived diagnostics report high labour occupancy in peak periods, but the
+  headline percentage depends on whether movement and ineffective actions are
+  counted; it is not a single time-invariant utilisation number. Every animal
+  costs about **2.2 actions/day** in upkeep. Rescuing animals was often a losing
+  trade: we rescued 154 sheep while losing money (−35k labour value against
+  +77k capital). This supports an opportunity-cost explanation, not a proof
+  that escape is globally optimal.
+* every structural operator tested in that phase was negative or neutral.
+  Parameters and switches produced the surviving short-term improvement; a
+  different learned or planning architecture remained a viable direction.
 
-### 5.2 The one that mattered
+### 5.2 The strongest constant-level signal
 
-Sixty constants swept.  Of them: about twelve were **dead code** (changing them
-produced byte-identical games), several were **already on the correct side of a
-cliff**, and exactly one was a genuine untaken switch.
+Sixty constants were swept. In that tested set, about twelve were effectively
+**dead code** (changing them produced identical action traces), several were
+**already on the correct side of a cliff**, and exactly one was a genuine
+untaken switch.
 
 ```
 V9_FERT_FIRST_DAY   14 -> 12      +84 margin/game

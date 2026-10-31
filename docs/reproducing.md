@@ -22,7 +22,7 @@ python tools/h2h_w2120_live.py \
     --arms candidates_armA/main.py candidates_armB/main.py \
     --replays /path/to/replay_folder \
     --ids /path/to/episode_ids.txt \
-    --workers $(nproc) \
+    --workers 1 \
     --out /tmp/paired.json
 ```
 
@@ -59,7 +59,7 @@ The same applies to memory: a container limit can be a small fraction of what
 ## 2. Direct duel between two agents
 
 ```bash
-python tools/duel.py --a armA.py --b armB.py --seeds 1-128 --workers $(nproc)
+python tools/duel.py --a armA.py --b armB.py --seeds 1-128 --workers 1
 ```
 
 Each world is played twice with the seats swapped, so first-player advantage

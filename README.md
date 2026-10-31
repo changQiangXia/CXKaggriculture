@@ -4,8 +4,13 @@
 > 银牌线为第 507 名 / 4514.5 分 —— **差 1.0 分、2 个名次。**
 
 这是一份比赛归档，也是一份 write-up：记录我们怎么做的、试过什么、为什么
-止步于此，以及如果重来一次会怎么做。所有原始笔记、33 篇顶级公开 write-up、
+止步于此，以及如果重来一次会怎么做。所有原始笔记、33 篇参赛者公开 write-up、
 两份终局提交的可执行文件都在这个仓库里。
+
+> **口径说明：** 当前事实、术语与证据等级以
+> [`docs/08-evidence-and-scope.md`](docs/08-evidence-and-scope.md) 为准。
+> `COMPLETE-STORY.md`、`experiment-log.md` 和 `retrospective.md` 保留历史
+> 快照，其中的临时分数与强措辞不自动代表最终结论。
 
 **推荐阅读顺序：**
 
@@ -14,10 +19,12 @@
    约 60 个包装/控制点的代码级结构；
 3. [`docs/07-top-teams.md`](docs/07-top-teams.md)：深读前 10 名及单卡金牌
    方案，理解高手为何选择 BC、PPO、联赛或规划器；
-4. [`docs/01-timeline.md`](docs/01-timeline.md)：按日期看判断如何变化；
-5. [`docs/02-experiments.md`](docs/02-experiments.md)：查各组实验的规模、
+4. [`docs/08-evidence-and-scope.md`](docs/08-evidence-and-scope.md)：
+   查看全仓库的证据分级、指标口径和措辞边界；
+5. [`docs/01-timeline.md`](docs/01-timeline.md)：按日期看判断如何变化；
+6. [`docs/02-experiments.md`](docs/02-experiments.md)：查各组实验的规模、
    结果和证据强度；
-6. [`docs/history/CHRONOLOGY.md`](docs/history/CHRONOLOGY.md)：需要原始细节时，
+7. [`docs/history/CHRONOLOGY.md`](docs/history/CHRONOLOGY.md)：需要原始细节时，
    从 521 份逐日笔记继续追溯。
 
 ---
@@ -27,10 +34,11 @@
 我们用一个**41 条路线组成的动作磁带库 + 约 60 个包装/控制点**的架构，在
 约 60 个常量里找到唯一一个真正卡在错误一侧的开关
 （`V9_FERT_FIRST_DAY 14 → 12`，+84 分/局），把它推到了**前 5.02%**；
-但同类路线（553 名的队伍）和我们自己都撞上了同一面墙：
-**市场层有天花板，剩下的差距在产能。** 头部选手则把强 replay 学成
-条件策略：前 3 名用不同强度的自博弈 PPO，第 4、7、17、19、27 名等用纯 BC
-拿到前四或金牌。BC 是共同地基，PPO 只是有条件时使用的第二轮放大器。
+在同类磁带路线（553 名的队伍）以及我们自己的实验中，市场层收益持续缩小；
+**剩余差距主要落在生产和计划执行，而不是继续优化卖单。** 头部选手则把强 replay 学成
+条件策略：前 3 名用不同强度的自博弈 PPO，第 4、7、17、19、27 名等以 BC
+为主并配合少量规则拿到前四或金牌。BC 是共同地基，PPO 只是有条件时使用的
+第二轮放大器。
 
 ---
 
@@ -102,9 +110,10 @@
 
 这个架构的性质决定了后面的一切：
 
-* 磁带的日程是**饱和**的（劳动利用率约 95%），所以**加行为**几乎总是被机会成本吃掉；
-* 能动的只有**参数与开关**（时机、阈值）；
-* 每层要么自己付账，要么是税——唯一判据是配对测试。
+* 在这套磁带中，日程接近饱和（在归档日志的不同统计口径下约为
+  74%–97%，取决于是否把移动或无效动作计入），因此新增行为经常被机会成本吃掉；
+* 在这套 tape 的高杠杆区域中，改动主要是**参数与开关**（时机、阈值）；
+* 每层要么自己付账，要么是税；应同时用配对测试、胜负翻转和线上结果判断。
 
 完整拆解——包括 Router 伪代码、每类策略层、三层候选血统和源码审计方法——
 见 [`docs/06-our-agent.md`](docs/06-our-agent.md)。
@@ -124,7 +133,7 @@
 学习分类器，因为 day-6 表留一法重拟合、27 组合路线边界扫描和固定开局替换
 都没有稳定超过这个确定性路由。
 
-### 3.3 唯一真正有效的改动
+### 3.3 终局常量扫描中最强的正向开关
 
 我们扫了约 60 个常量与阈值家族。绝大多数是**死代码**（改动后产生逐字节相同的
 对局）或**已经站在悬崖正确一侧**。只有一个是真正卡在错误一侧的：
@@ -141,11 +150,13 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 得到终局提交 `comb2b`：三池效应 **+112 / +108 / +113**，t = 2.8–5.6，
 而改动只有 **6 行 diff**。
 
-线上验证：开分 **2109.3**，比它的父本高 165 分。
+线上读数：提交后的首个观测为 **2109.3**；同一天稍早的父本 `comb` 为
+1943.9。两者不是严格同时刻的配对 A/B，因此 **165 分只能作为支持性证据，
+不能单独证明全部差异来自这 6 行代码**。
 
 ### 3.4 我们做对了什么（方法论）
 
-这一节比上面的结果更重要，因为**唯一有效的发现差点被扔掉**。
+这一节比上面的结果更重要，因为**本轮常量扫描中最强的信号差点被扔掉**。
 
 **① 配对评估把噪声压掉 65 倍。**
 
@@ -179,19 +190,19 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 | 方向 | 结果 |
 |---|---|
-| **层消融**（60 层全扫） | 只有两处前置市场层是真税，其余承重 |
+| **包装点消融**（60/60） | 在该面板中两处前置市场层为负收益，多数其余包装点承重 |
 | **拼接 / 路线 × 窗口搜索** | 现役配置即联合最优 |
-| **市场流合成**（约 350 个变体） | 全部为负或惰性 |
+| **市场流合成**（约 350 个变体） | 在归档面板中均为负或惰性 |
 | **动物逃逸修复**（3 个补喂算子） | 救回 154 只羊、花掉 35k 劳动价值换 77k 资本，**净亏** |
 | **棚屋溢出** | 机制确会销毁，但实测仅 154 分/局，属噪声 |
 | **RL / PPO**（本地沙盒 40 轮） | 零泛化 |
 | **行为克隆我们自己的路由器** | 100% 复现教师，但只复现、不提升 |
 | **长期常量扫描** | 约 60 个里只有 1 个正向开关 |
 
-**结构性发现**：磁带型 agent 是一台**满负荷调度器**。每只牲畜每天约需
-2.2 个动作，劳动利用率约 95%。所以「它让一部分牲畜逃逸」不是 bug，而是在
-固定劳动预算下的**最优主动淘汰**。任何「加一件事」的算子都会被它自身的
-机会成本吃掉。
+**结构性观察**：在这套磁带里，劳动预算非常紧；每只牲畜每天仍需约
+2.2 个动作。若干救回牲畜的实验净亏，支持“逃逸部分是预算剪裁”的解释，
+但不能推出所有磁带都处于同一利用率，也不能证明逃逸在所有世界里最优。
+新增行为需要重新验证整条生产和现金流链。
 
 ---
 
@@ -215,16 +226,17 @@ V9_FERT_FIRST_DAY   14 -> 12      +84 边际分/局
 
 ## 6. 公开区顶级选手做了什么
 
-我们把**33 篇公开 write-up** 全部抓取归档（`public-writeups/`），并把前几名的
+我们把归档时能定位到的 **33 篇公开 write-up** 保存下来
+（`public-writeups/`），并把前几名的
 方法摘录在 [`public-writeups/README.md`](public-writeups/README.md)。
 
-**更准确的概括：头部都以强 replay/行为克隆为地基，但终局路线分成
-BC→自博弈 PPO、纯 BC/SFT、以及 BC+显式规划器三类。**
+**更准确的概括：在有公开 write-up 的头部队伍中，强 replay/行为克隆是共同
+地基，但终局路线分成 BC→自博弈 PPO、纯 BC/SFT、以及 BC+显式规划器三类。**
 
 | 路线 | 代表名次 | 关键条件 |
 |---|---|---|
 | BC → 自博弈/联赛 PPO | 1、2、3、6、10、12、13、22 | 强 critic、反应式联赛、足够新的 replay；规模化收益大 |
-| 最终纯 BC/SFT | 4、5、7、9、17、19、24、27 | 执行后标签、教师版本一致、按整局选 checkpoint |
+| 以 BC/SFT 为主（可含薄规则） | 4、5、7、9、17、19、24、27 | 执行后标签、教师版本一致、按整局选 checkpoint |
 | BC/RL + 显式规划器 | 26、28 | 用规划处理生产、劳动、路线、市场和终局约束 |
 
 | 名次 | 方法 | 训练规模 |
@@ -232,7 +244,7 @@ BC→自博弈 PPO、纯 BC/SFT、以及 BC+显式规划器三类。**
 | 1 | Transformer 10.2M + BC/PPO 交替（BC 引入新策略） | ~8.3M–9.0M 自博弈局 |
 | 2 | 37M encoder-decoder，纯 BC + 短 PPO | **30 GPU·小时**（RTX 5090） |
 | 3 | Transformer 10.4M + 重 PPO | 最终 run 360M 步；总 campaign 约 21M 局 |
-| **4** | **纯 BC，无自博弈** | **~5.5 A100·小时** |
+| **4** | **BC + 喂食保护规则，无自博弈** | **~5.5 A100·小时** |
 | 7 | 8.2M BC + 两条保护规则，NumPy 推理 | 单张 RTX 5090 |
 | 17 | 4M/7M 纯 BC + 薄规则层 | 总成本 <\$60 |
 
@@ -247,14 +259,16 @@ BC→自博弈 PPO、纯 BC/SFT、以及 BC+显式规划器三类。**
 
 完整推演见 [`docs/05-next-time.md`](docs/05-next-time.md)。三条最硬的：
 
-**① 把 BC 作为主线，越早越好。**
-第 4 名用 5.5 A100·小时、纯 BC 拿到第 4。我们的路线在 509 名撞上天花板，
-而同类路线（553 名）的 write-up 结论与我们完全一致：**「市场层有天花板，
-剩下的差距在产能」。第 17 名不到 60 美元的纯 BC 金牌进一步说明，门槛不在
-“必须有 GPU 集群”，而在数据、动作接口与完整局评测。
+**① 把 BC 作为首选主线并尽早建立闭环。**
+第 4 名用约 5.5 A100·小时、以 BC 为主并加一条喂食规则拿到第 4。
+我们测试的磁带派生路线最终为
+509 名；同类路线（553 名）也报告市场层收益衰减、剩余差距在产能。
+第 17 名不到 60 美元的纯 BC 金牌进一步说明，初始门槛不在
+“必须有 GPU 集群”，而在数据、动作接口与完整局评测；这不意味着算力不决定上限。
 
 **② 评估器要先于模型建立，且必须配对。**
-这是唯一一件我们从第一天就做对的事，也是唯一有效的发现没有变成噪声的原因。
+这是我们从第一天就做对、并在整场比赛中持续受益的关键工程决定，也是小幅
+真实效应没有完全埋进噪声的主要原因。
 
 **③ 认规则的时间尺度。**
 这个比赛的名次由**两周后的 BT 重算**决定。我们曾在 10-02 写下「缓冲 4σ、
@@ -276,6 +290,7 @@ CXKaggriculture/
 │   ├── 05-next-time.md            下次如何做得更好
 │   ├── 06-our-agent.md            ★ 我们的方案：路由、层栈与证据
 │   ├── 07-top-teams.md            ★ 顶级高手方案横向深读
+│   ├── 08-evidence-and-scope.md   ★ 证据分级、指标口径与措辞边界
 │   ├── COMPLETE-STORY.md          长篇叙事（一份文档讲完整场比赛）
 │   ├── experiment-log.md          最后 38 小时的逐小时日志
 │   ├── retrospective.md           复盘原文（含被推翻的结论）
@@ -283,23 +298,28 @@ CXKaggriculture/
 │   └── history/                   521 份原始工作笔记（按日期分三阶段）
 │       ├── README.md              阶段说明
 │       └── CHRONOLOGY.md          ★ 逐日实验账本（521 份全索引）
-├── public-writeups/               33 篇公开 write-up + 索引摘要
+├── public-writeups/               33 篇公开 write-up + 索引与深读
 ├── candidates/                    5 个候选包 + SHA256SUMS
 ├── tools/                         15 个评估与诊断脚本
 ├── evidence/                      榜单快照与样本对局
-└── reference/                     引擎规则常量
+└── reference/                     引擎规则摘录（非完整权威副本）
 ```
 
 ---
 
 ## 9. 数据与规则合规
 
-本仓库**不包含**任何比赛数据、对局回放（除 4 局自采样本）、或他人提交物。
+本仓库**不包含**原始比赛数据、私有数据、模型权重或未公开的他人提交物。
+`evidence/` 保留 4 局自采对局样本；`public-writeups/` 和 `candidates/`
+只包含公开分享且保留来源/许可说明的文本或代码。
 
-`public-writeups/` 收录的是**参赛者公开发表的方案说明**（Kaggle 自动公开的
-top episode 与公开 discussion），仅作技术归档与研究参考；每篇顶部保留原文
-链接与作者归属。`candidates/` 内的代码派生自公开发布的 MIT/Apache-2.0 作品，
-其版权与许可声明原样保留在 `main.py` 内。
+`public-writeups/` 收录的是**参赛者在 Kaggle 公开发表的方案说明**，
+仅作技术归档与研究参考；每篇顶部保留原文链接与作者归属，不改变原作者版权。
+`candidates/` 内适用的代码派生自允许再利用的公开作品；原文件中的版权、
+许可证和竞赛规则声明均予保留。若来源条款有疑义，以对应原文和竞赛规则为准。
+
+完整的证据分级、public/private 与训练规模口径见
+[`docs/08-evidence-and-scope.md`](docs/08-evidence-and-scope.md)。
 
 如相关竞赛规则要求删除或调整，请联系仓库所有者。
 
@@ -326,9 +346,11 @@ indexed and summarised. `docs/05-next-time.md` lays out what we would do
 differently: build the paired evaluator first (we did, and it is why the one
 real finding survived), then train a behavioural-cloning policy instead of
 hand-building tapes — the 4th-place team reached 4th with pure BC and ~5.5
-A100-hours, and the closest peer to our approach (553rd) reported the same
-ceiling we hit: market layers run out; production is what remains. A detailed
+A100-hours, and the closest peer to our approach (553rd) reported a similar
+bottleneck in its tested route: market-layer gains became small while production
+and execution remained. A detailed
 technical walkthrough of the route router, layer stack, and lineage is in
 `docs/06-our-agent.md`; `docs/07-top-teams.md` compares the top public teams,
 separates BC/SFT-only from BC+PPO and hybrid-planner approaches, and explains
-which practices transferred to a low-compute rerun.
+which practices transferred to a low-compute rerun. `docs/08-evidence-and-scope.md`
+defines the evidence levels and measurement conventions used across the archive.

@@ -4,6 +4,9 @@
 究竟怎样把一个观测变成一个动作，为什么它能在 10,148 支队伍中进入前
 5.02%，又为什么最终停在银牌线下 1 分。**
 
+这是一份**事后重建**：代码结构与常量以终局 `main.py` 为准，实验动机与
+结论来自当时日志；两者不能互相替代。
+
 结论先说清楚：这不是一个从零训练出的神经网络。它是一台
 **按商店条件选择路线的动作回放器**，内置 41 条完整路线，每条路线包含
 719 个可执行回合（step 0–718，覆盖 720 步的 episode）；路线之外再叠加
@@ -13,6 +16,7 @@
 更详细的比赛时间线见 [`01-timeline.md`](01-timeline.md)，逐项实验结果见
 [`02-experiments.md`](02-experiments.md)，提交与常数证据见
 [`03-final-submissions.md`](03-final-submissions.md)。本文主要解释方案本身。
+证据等级与口径定义见 [`08-evidence-and-scope.md`](08-evidence-and-scope.md)。
 
 ---
 
@@ -42,7 +46,7 @@ Kaggle engine
 
 源码中的 `Chassis.act()` 有一段关键的故障隔离：如果某个反应层抛出异常，
 底盘返回**未经改写的原始磁带动作**；如果整个入口都无法构造动作，才退化为
-`PASS`。这保证一个局部市场层出错时，不会拖垮整局。
+`PASS`。这能避免代码异常直接中断决策，但不保证该层在无异常时一定有益。
 
 ---
 
@@ -191,7 +195,7 @@ def router(observation, step, state):
 | `R97` | 用现有订单与物理资源保护投入，不虚增现金 | 轻度承重，保留 |
 | `V9_CARROT` | 在胡萝卜账本优于小麦时替换种植 | 存在正确侧的阈值，放宽或收紧都被测过 |
 | `V9_HERD` | 按市场抽签选择鹅/羊/牛 | 动物经济入口之一 |
-| `V9_FERT` | 用携带的肥料改善年轻麦/胡萝卜产出 | 终局唯一新增正向时机开关来自这里 |
+| `V9_FERT` | 用携带的肥料改善年轻麦/胡萝卜产出 | 终局新增的正向时机开关来自这里；是约 60 个已扫常量中唯一通过三池验证的常量 |
 | `CA` | 胡萝卜替换及其收获/喂养约束 | `_CA_FROM` 是承重开关，方向已经正确 |
 | `E402` | 限制晚期种子购买，使其不超过剩余可种植上限 | 修复“种子泄漏”类问题 |
 | `O` | 开局签名覆盖，处理不同对手家族的开局差异 | 保留开局语义 |
@@ -228,7 +232,7 @@ def router(observation, step, state):
 
 ### 5.4 哪些层是“关键”、哪些只是“注册”
 
-终局前的 60/60 层消融审计得出三类结果：
+终局前对 60/60 个包装点做消融，得到三类结果：
 
 * **关键承重**：`V233`、`R51_INPUT`、`R51_WAREHOUSE`、`R85`、
   `CXD`、`QC`、`FS` 等，拆掉后胜场明显下降；
@@ -237,7 +241,7 @@ def router(observation, step, state):
 * **惰性/未触发**：`R36_SALE`、`R97`、`ROOMGUARD` 等，在特定面板上
   拆掉没有变化。它们仍保留，因为可能在世界分布变化时提供保护。
 
-这解释了一个常见误解：**“约 60 层”不等于“60 次有效模型更新”。**
+这解释了一个常见误解：**“约 60 层包装点”不等于“60 次有效模型更新”。**
 更准确的说法是：约 60 个可消融的包装/控制点，共同组成一个非常长的确定性
 策略程序。
 
@@ -299,8 +303,9 @@ comb2b（终局主提交）
 | **`comb2b`** | **+145（+112，t=5.55）** | **−132（+108，t=5.38）** | **+5,013（+113，t=2.80）** |
 
 这里的数字应读作“同一对手、同一世界下的配对边际”，不是普通的不同局
-胜率。`V9_FERT_FIRST_DAY` 的 12 和 13 逐局完全相同，说明改变的是**窗口
-是否打开**，而不是连续调节一个分数。
+胜率。`V9_FERT_FIRST_DAY` 的 12 和 13 在该面板上逐局完全相同，这与
+**窗口开关**的行为一致；具体水肥机制仍是待单独验证的解释，不能仅凭该结果
+证明所有世界共享同一因果路径。
 
 ---
 
@@ -493,5 +498,6 @@ submission. Paired evaluation across three independent opponent pools found a
 stable +108 to +113 margin per game, while a 996-game historical-loss pool
 found +238 per game against `w2_120` (t=13.5). The route reached 509th of
 10,148 teams and missed silver by one point; its main structural limit was
-that a frozen tape could not replan production after day 12, while the top
-teams used behavioral cloning and self-play to learn the whole policy.
+that the frozen tape did not replan production after day 12. In our evaluated
+route family this was the principal bottleneck; the best public teams instead
+learned state-conditioned policies, with and without PPO.

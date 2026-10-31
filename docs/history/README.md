@@ -73,11 +73,11 @@ The workspace consolidated into `farm2945_dev/`, and the notes become dense:
 band-by-band win/loss tables, route searches, animal-service designs,
 mechanism candidates, chimeric merges, public-notebook audits.
 
-This is where the agent architecture stabilised: a **frozen action tape**
-(720 recorded turns) with roughly sixty hand-written policy layers wrapped
-around it to override market orders, routes, labour allocation and animal
-choices.  Layer by layer the notes record which of those overrides paid for
-themselves.
+This is where the agent architecture stabilised: **41 replay routes**, each
+covering **719 executable steps (0–718)**, with roughly sixty wrapper/control
+points around them. The wrappers could override market orders, routes, labour
+allocation and animal choices; the notes track which interventions survived
+paired evaluation.
 
 Two disciplines emerge repeatedly in these notes and both were vindicated
 later:
@@ -92,16 +92,21 @@ later:
 See `../experiment-log.md` (the detailed log) and `../retrospective.md` (the
 lessons).  Summary of the last 38 hours:
 
-* 60 constants swept; all but one dead, inert or already correct;
+* within the ~60-constant sweep, all but one were dead, inert or already correct;
 * one genuine un-taken switch found, `V9_FERT_FIRST_DAY 14 → 12`, worth
   **+84 margin per game** (t = 5.10 across three independent opponent pools);
 * it had been discarded earlier because the first sweep used **win/loss
   counts**, which threw away nearly all the signal;
-* the three-constant variant `comb2b` was submitted and finished on **2098.7**
-  (top 4.6% of 10,246 teams — silver-medal band);
+* the three-constant variant `comb2b` was submitted; the public snapshot at the
+  time of this note was **2098.7**;
 * a direct self-play duel then produced the **opposite** ranking to the replay
-  harness, and the ladder sided with the duel.  That contradiction is
-  documented but unresolved.
+  harness. Available live readings put `comb2b` above `w2_120`, matching the
+  frozen-replay ordering and contradicting the direct duel. That contradiction
+  is documented but unresolved.
+
+The final post-deadline rerank placed the team at **509 / 10,148 with private
+4513.5**, one point below the silver line. Historical public snapshots in these
+notes are not final results; see [`../08-evidence-and-scope.md`](../08-evidence-and-scope.md).
 
 ---
 
