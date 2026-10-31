@@ -113,3 +113,19 @@ lessons).  Summary of the last 38 hours:
 | what we got wrong and how we caught it | `../retrospective.md` |
 | how to re-run the evaluation | `../reproducing.md` |
 | exact engine constants | `../../reference/engine-rules.md` |
+
+---
+
+## 关于本目录里的失效链接
+
+这些笔记是**原样保留**的工作记录，其中不少链接指向**当时工作机上的文件**
+（`results.json`、`candidate_*.tar.gz`、`*.py` 等），这些文件没有随笔记一起归档，
+所以链接会失效。统计：约 100 处，类型集中在 `.json`(29)、`.md`(28)、`.gz`(22)、`.py`(18)。
+
+这是**有意的**：笔记的价值在于当时的推理过程，不在于链接可用。
+阅读时把它们当作"当时我看了哪个文件"的注脚即可。
+
+本仓库**新写的**导航文档（根目录 `README.md` 与 `docs/0*.md`）内部链接全部有效。
+
+另外，部分笔记里含有当时的机器路径（`/root/autodl-tmp/...`）与容器配置，
+那是历史事实记录，不代表当前或未来的运行环境。
