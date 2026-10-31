@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 26 名，队伍 **My second life**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/31th-place-currently-our-writeup-macro-bc-d
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Macro BC + Day Compiler
 
 [Github](https://github.com/PavelSavchenkov/kaggriculture/tree/main/final_handoff)

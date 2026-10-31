@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 349 名，队伍 **shawnYiB**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/kaggriculture-shawny1b
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 ### At a glance
 
 My final agent combines a reliable production schedule extracted from game replays with two kinds of adaptation: an opponent-aware seller that decides when and how much to sell, and crop/livestock choices that preserve an already-tested execution schedule. Rules coordinate farm execution, while a small learned model estimates the opponent's future sales.

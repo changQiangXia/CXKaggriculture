@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 645 名，队伍 **Hak**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/bronze-from-muzero-to-a-measured-hybrid-agent
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Bronze: from MuZero to a measured hybrid agent
 
 Thanks to Kaggle and the hosts. Kaggriculture looks like a farming game but behaves like a two-player market problem. This write-up covers what we tried in order, the measurement that ended each approach, and what the final agent does. All numbers come from our logs or the engine source.

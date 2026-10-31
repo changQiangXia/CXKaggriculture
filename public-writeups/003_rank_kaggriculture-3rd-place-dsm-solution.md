@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 3 名，队伍 **DSM**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/kaggriculture-3rd-place-dsm-solution
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 ## 1. Summary
 
 - The final submission is one model (gen70) with several stages of inference-time post-processing on top. The model is a policy that we built by BC from top teams' replays and then strengthened with self-play PPO. The run behind the final submission trained on about 360M steps (about 127k games) and reached generation 70 by promotion.

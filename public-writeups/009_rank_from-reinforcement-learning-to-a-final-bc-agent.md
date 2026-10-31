@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 9 名，队伍 **tetsuya & yuanzhe & guoqin**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/from-reinforcement-learning-to-a-final-bc-agent
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 9th: From Reinforcement Learning to a Final BC Agent
 
 First, I'd like to thank my teammates, **tetsuya** and **guoqin gu**. It was a pleasure taking part in this competition together. Thanks also to the hosts and everyone who shared strategies and experiences in the discussions.

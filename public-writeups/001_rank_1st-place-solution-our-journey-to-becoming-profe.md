@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 1 名，队伍 **M & M & P & Q**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/1st-place-solution-our-journey-to-becoming-profe
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Kaggriculture 1st Place Solution: Iterating Between Behavior Cloning and Self-Play PPO
 
 We finished 1st out of 10,148 teams in Kaggriculture. We initialized our policy with behavior cloning (BC) on public replays and then improved it through self-play PPO. Throughout training, whenever self-play exposed gaps in the agent's strategy, we introduced targeted demonstrations from public replays or our heuristic solver and resumed PPO to refine the resulting behavior.

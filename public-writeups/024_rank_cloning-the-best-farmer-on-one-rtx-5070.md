@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 24 名，队伍 **abozten**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/cloning-the-best-farmer-on-one-rtx-5070
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Cloning the best farmer on Colab
 
 Thanks to Kaggle and the hosts for Kaggriculture. The game looks simple, but the shared market makes it hard. And thanks to the top teams, especially **DSM**, **M & M & P & Q** and **Victor @ Tufa Labs**. Their ladder games were our training data, so this solution is partly theirs.

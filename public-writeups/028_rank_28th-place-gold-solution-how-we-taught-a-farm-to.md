@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 28 名，队伍 **吃白饭的大肥鱼**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/28th-place-gold-solution-how-we-taught-a-farm-to
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 28th Place Gold Solution — How We Taught a Farm to Make Decisions
 
 **28th place · Gold · Kaggriculture 2026**<br>

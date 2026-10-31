@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 573 名，队伍 **Tim McGarvey**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/top-6-in-my-first-kaggle-competition-a-hand-writ
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Top 6% in my first Kaggle competition: a hand-written planner with lookups 
 
 **Final result: 573rd of 10,148 (top 5.6%), a bronze-range finish.** On the live ladder it ended 481st, inside silver; the final Bradley-Terry ranking over all two weeks of post-deadline games placed it 573rd. No trained model: the agent is a hand-written planner. I built it over eight weeks and it took five separate attempts to get there. This is the story of those attempts, how the final agent plays, and the things I'd do differently.

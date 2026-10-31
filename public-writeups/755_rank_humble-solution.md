@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 755 名，队伍 **Rospel**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/humble-solution
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Humble Solution
 
 **TL;DR**

@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 22 名，队伍 **atsushi11o7**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/22nd-place-behavior-cloning-and-ppo-with-diverse
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 ## Introduction
 
 I initialized the policy with behavior cloning (BC) from strong-player replays and then improved it with PPO. Simulating all 720 turns of every episode was expensive, however, and self-play against fixed opponents encouraged narrow strategies.

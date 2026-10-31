@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 116 名，队伍 **Auto Fermers**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/116th-six-weeks-of-llm-coding-agents
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 116th: six weeks with LLM coding agents, and why replays mattered more than RL
 
 **Silver, 116th of 10,148.** We worked with LLM coding agents throughout, and section 5 shares that experience. Over six weeks we tried forks of public bots, market-microstructure tricks, ML on replays, bandits, and behaviour cloning followed by PPO. What finally worked was the competition's most open resource: its recorded public games. Our final bot replays the recorded games of one strong bot (credited in section 3). It picks among them by the town's shop sequence, using a routing table tuned in simulation, and adds two execution layers of our own. Most published gold solutions were built on replays too; they trained models on them, while we replayed them directly.

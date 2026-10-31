@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 2 名，队伍 **Victor @ Tufa Labs**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/trading-clutch-no-b200
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 2nd - Trading clutch, and no B200s harmed!
 
 Train the 2nd place solution with **30 RTX 5090 hours**. 1.5K of plain python/pytorch available here: [Github/vmerckle/kaggriculture](https://github.com/vmerckle/kaggriculture), and download [the weights!](https://www.kaggle.com/models/vmerckle/kaggriculture-2nd-place)

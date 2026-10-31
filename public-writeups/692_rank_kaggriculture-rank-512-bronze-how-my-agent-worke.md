@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 692 名，队伍 **Sarthak Sharma **。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/kaggriculture-rank-512-bronze-how-my-agent-worke
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # From 400 Score to Top 13: Kaggriculture Bronze Medal Solution
 
 ![Kaggriculture Rank 512 Bronze](https://raw.githubusercontent.com/sarthak-here/kaggriculture/master/docs/images/rank512-bronze-banner.svg)

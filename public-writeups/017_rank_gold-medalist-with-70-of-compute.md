@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 17 名，队伍 **Gemini IS ALL YOU NEED**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/gold-medalist-with-70-of-compute
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Gold Medal Solution with Under $60 of Compute
 
 I'm Yuan800, a high school junior, and this was my first time leading a team in a Kaggle competition. All the rented compute for our whole competition, GPU and CPU, came to **$59.78**. Each of our final models was trained from scratch on one rented RTX 5090, and the larger one took about 4.5 hours. Our final agents use no self-play and no RL, and every evaluation ran on CPU. This post explains how our plain behaviour-cloning (BC) agent got into the gold range, and what we learned on the way.

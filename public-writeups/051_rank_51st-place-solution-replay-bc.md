@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 51 名，队伍 **Driz Lo**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/51st-place-solution-replay-bc
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 51st Place Solution: Replay BC
 
 A good farm layout is only the beginning of a Kaggriculture strategy. Animals need feed, harvests need transport, workers need to arrive at the right time, and products need to reach the market. A policy can make a sensible choice at every individual station and still fail to run the farm as a whole.

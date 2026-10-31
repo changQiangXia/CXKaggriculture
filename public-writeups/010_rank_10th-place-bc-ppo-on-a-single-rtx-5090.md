@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 10 名，队伍 **KawattaTaido**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/10th-place-bc-ppo-on-a-single-rtx-5090
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 10th place: BC + PPO on a Single RTX 5090
 
 Code, weights and reproduction instructions: https://github.com/KawattaTaido/kaggriculture-release (CC BY 4.0).

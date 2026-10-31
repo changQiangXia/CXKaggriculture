@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 5 名，队伍 **有辣条有权**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/its-sft-all-the-way-down
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # It’s SFT all the way down
 
 *5th place (gold) in [Kaggriculture](https://www.kaggle.com/competitions/kaggriculture), team 有辣条有权.*

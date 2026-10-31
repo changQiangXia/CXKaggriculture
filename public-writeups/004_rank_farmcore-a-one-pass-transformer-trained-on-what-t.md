@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 4 名，队伍 **Farmcore**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/farmcore-a-one-pass-transformer-trained-on-what-t
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Farmcore: a one-pass transformer trained on what the engine executed
 
 ![](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F21974454%2Fd4e98a544e2b1791f003ceeef73e38c3%2F01_intro.gif?generation=1792182652907558&alt=media)

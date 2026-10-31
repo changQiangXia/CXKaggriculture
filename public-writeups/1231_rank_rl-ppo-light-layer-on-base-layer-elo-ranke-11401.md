@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 1231 名，队伍 **KevlarZanderChi**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/rl-ppo-light-layer-on-base-layer-elo-ranke-11401
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Kaggriculture: exact-search distillation and VinePPO on top of Pipe-16 (~1,140 / 10,148)
 
 *Final rank pending the post-deadline Bradley–Terry fit. Code, weights and a rebuild notebook are released below.*

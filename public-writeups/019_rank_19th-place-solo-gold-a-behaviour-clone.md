@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 19 名，队伍 **Christoffer Thimsen**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/19th-place-solo-gold-a-behaviour-clone
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 ## Summary
 
 My final agent (MXFMHF12D) finished 19th of 10,148 teams with a final score of 5,210.3. It is a behaviour clone of the teams that finished 1st, 3rd and 7th: M & M & P & Q, DSM and DECEM. Twelve small networks trained on their replays (and on older games in slots the agent does not play from) each score every move, the agent averages their probabilities, and three rules sell goods the engine would otherwise destroy. No RL went into it, and it does no search at play time.

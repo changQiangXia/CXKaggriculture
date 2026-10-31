@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 47 名，队伍 **D Chakraborty**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/47th-place-teaching-a-farming-agent-from-replays
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # 47th place: teaching a farming agent from replays
 
 Code: [github.com/spoutop/kaggriculture-replay-cloning](https://github.com/spoutop/kaggriculture-replay-cloning) · Final agents: [Kaggle dataset](https://www.kaggle.com/datasets/spoutop/kaggriculture-smackaveli-final-agents)

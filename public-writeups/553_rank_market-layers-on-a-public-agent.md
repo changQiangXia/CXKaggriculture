@@ -1,3 +1,8 @@
+> **来源 / Source**：Kaggle Kaggriculture 公开 write-up，第 553 名，队伍 **42**。
+> **原文**：https://www.kaggle.com/competitions/kaggriculture/writeups/market-layers-on-a-public-agent
+> 本文为比赛归档的离线副本，仅作技术参考；**版权归原作者所有**。
+> 如作者要求撤下，请联系仓库所有者。
+
 # Market layers on a public agent, and where they stop
 
 **Final result: #553 of 10,148, a bronze medal, 15.3 points (46 places) below silver.** We are team 42 ([Kefei Yan](https://www.kaggle.com/kefeiyan), [Frank Yang](https://www.kaggle.com/ffy208), [yirenw11](https://www.kaggle.com/yirenw11)). Our final agent is a public route-replay agent with a stack of our own market layers on top. It reached live #128 on Sep 26 and then slid as the strong final versions arrived. This post covers what we tried, how the agent works, how we measured, and why market play was not enough.
